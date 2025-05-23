@@ -61,7 +61,7 @@ We integrate:
 
 ---
 
-### 🧪 Step 5: Functional Verification (Optional)
+### 🧪 Step 5: Functional Verification 
 - Perform RNA-Seq and WGS to confirm expression and stability.
 - Check for off-target effects or mutations.
 
