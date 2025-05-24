@@ -1,5 +1,5 @@
 # 🚀 RedDust Reclaimer
-![Project Logo](docs/figures/Perchlorate.png)
+![Project Logo](docs/figures/Project logo.png)
 
 **Synthetic Biology Meets Astrobiology**  
 **RedDust Reclaimer** is a modular space biotech initiative that engineers *Bacillus subtilis* for perchlorate bioremediation under Martian regolith conditions. This project fuses multi-layered gene optimization, protein docking, metabolic modeling, and planetary bioethics — tracked at our GitHub project board:
