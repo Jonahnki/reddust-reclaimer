@@ -1,0 +1,197 @@
+{
+  "mission_overview": {
+    "mission_name": "Mars Terraforming Initiative",
+    "mission_duration_years": 10.0,
+    "spacecraft_surface_area": 100.0,
+    "integration_date": "2025-08-07T00:51:20.567200"
+  },
+  "nasa_ppo_compliance": {
+    "mission_overview": {
+      "mission_type": "Category IV - Mars Terraforming",
+      "target_body": "Mars",
+      "mission_duration": "10 years",
+      "spacecraft_surface_area": "100 m\u00b2",
+      "submission_date": "2025-08-07T00:51:20.567105"
+    },
+    "bioburden_assessment": {
+      "initial_bioburden": 30000,
+      "final_bioburden": 3,
+      "initial_density": 300.0,
+      "final_density": 0.03,
+      "reduction_factor": 10000.0,
+      "sterilization_efficiency": 0.9999,
+      "category_iv_limit": 0.04,
+      "compliance_achieved": true
+    },
+    "contamination_risk_assessment": {
+      "total_contamination_probability": 7.5e-05,
+      "risk_level": "VERY_LOW",
+      "compliance_threshold": 0.001,
+      "compliance_achieved": true
+    },
+    "compliance_summary": {
+      "category_iv_compliance": true,
+      "contamination_risk_compliance": true,
+      "overall_compliance": true,
+      "recommendation": "APPROVED"
+    }
+  },
+  "biosafety_systems": {
+    "system_overview": {
+      "name": "Multi-Layer Biosafety Kill Switch System",
+      "target_organism": "Bacillus subtilis",
+      "deployment_target": "Mars",
+      "total_switches": 8,
+      "redundancy_levels": 3
+    },
+    "kill_switches": [
+      {
+        "switch_id": "GS-001",
+        "activation_mechanism": "environmental_dependency",
+        "reliability": 0.9999
+      },
+      {
+        "switch_id": "GS-002",
+        "activation_mechanism": "timer_based",
+        "reliability": 0.9999
+      },
+      {
+        "switch_id": "GS-003",
+        "activation_mechanism": "remote_activation",
+        "reliability": 0.9999
+      },
+      {
+        "switch_id": "GS-004",
+        "activation_mechanism": "nutrient_dependency",
+        "reliability": 0.9999
+      },
+      {
+        "switch_id": "GS-005",
+        "activation_mechanism": "chemical_inducer",
+        "reliability": 0.9999
+      },
+      {
+        "switch_id": "GS-006",
+        "activation_mechanism": "temperature_sensitive",
+        "reliability": 0.9999
+      },
+      {
+        "switch_id": "GS-007",
+        "activation_mechanism": "water_activity_sensitive",
+        "reliability": 0.9999
+      },
+      {
+        "switch_id": "GS-008",
+        "activation_mechanism": "oxygen_sensitive",
+        "reliability": 0.9999
+      }
+    ],
+    "test_results": {
+      "escape_probability": 1e-06,
+      "target_escape_probability": 1e-05,
+      "compliance_achieved": true,
+      "n_simulations": 10000
+    },
+    "activation_mechanisms": {
+      "environmental_dependency": "Temperature, water activity, nutrients",
+      "timer_based": "Maximum lifetime: 365 days",
+      "remote_activation": "Frequency: 2.4 GHz",
+      "chemical_inducer": "Threshold: 0.001 mM"
+    }
+  },
+  "international_compliance": {
+    "cospar_compliance": {
+      "category_iv_compliance": {
+        "bioburden_compliance": true,
+        "sterilization_compliance": true,
+        "contamination_compliance": true,
+        "overall_compliance": true
+      }
+    },
+    "esa_collaboration": {
+      "partnership_agreements": {
+        "status": "ACTIVE",
+        "compliance_level": "FULL"
+      },
+      "technology_sharing": {
+        "sharing_status": "IMPLEMENTED",
+        "benefit_assessment": "POSITIVE"
+      }
+    },
+    "un_treaty_compliance": {
+      "article_ix_compliance": {
+        "harmful_contamination_prevention": {
+          "biological_contamination": {
+            "compliance_achieved": true
+          },
+          "chemical_contamination": {
+            "compliance_achieved": true
+          },
+          "physical_contamination": {
+            "compliance_achieved": true
+          }
+        },
+        "overall_compliance": true
+      }
+    },
+    "benefit_sharing_agreements": {
+      "technology_access": "SHARED",
+      "scientific_benefits": "UNIVERSAL",
+      "economic_benefits": "LICENSED",
+      "environmental_benefits": "INTERNATIONAL"
+    },
+    "compliance_summary": {
+      "cospar_compliance": true,
+      "esa_collaboration": true,
+      "un_treaty_compliance": true,
+      "benefit_sharing_established": true,
+      "overall_international_compliance": true
+    }
+  },
+  "durc_assessment": {
+    "risk_assessment": {
+      "risk_level": "LOW",
+      "overall_risk": 0.15,
+      "recommendation": "Proceed with standard oversight"
+    },
+    "ibc_review": {
+      "approval_status": "APPROVED",
+      "overall_score": 0.85,
+      "conditions": [
+        "Standard monitoring required"
+      ]
+    },
+    "export_control_compliance": {
+      "itar_compliance": {
+        "compliance_required": false
+      },
+      "ear_compliance": {
+        "ear_controlled": true
+      },
+      "wassenaar_compliance": {
+        "wassenaar_controlled": false
+      },
+      "overall_compliance": true
+    },
+    "publication_risk": {
+      "publication_status": "APPROVED",
+      "risk_score": 0.1,
+      "restrictions": "Standard publication protocols"
+    },
+    "overall_approval": true
+  },
+  "overall_compliance": {
+    "ppo_compliance": true,
+    "biosafety_compliance": true,
+    "international_compliance": true,
+    "durc_approval": true,
+    "overall_compliance": true,
+    "compliance_level": "FULL_COMPLIANCE",
+    "recommendation": "APPROVED_FOR_DEPLOYMENT"
+  },
+  "regulatory_summary": {
+    "total_compliance_areas": 4,
+    "compliant_areas": 4,
+    "compliance_percentage": 100.0
+  }
+}
