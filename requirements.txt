@@ -4,4 +4,9 @@ matplotlib
 tqdm
 transformers
 pandas
+numpy
+seaborn
+xgboost
+scipy
+joblib
 
