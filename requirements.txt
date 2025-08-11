@@ -10,7 +10,14 @@ biopython>=1.79
 rdkit-pypi>=2022.3.5
 cobra>=0.26.0
 
-# Development dependencies  
+# Documentation dependencies (needed for build-docs)
+sphinx>=4.1.0
+sphinx-rtd-theme>=0.5.0
+nbsphinx>=0.8.0
+jupyter>=1.0.0
+myst-parser>=0.15.0
+
+# Testing dependencies (needed for CI tests)
 pytest>=6.2.0
 flake8>=3.9.0
 black>=21.6.0
@@ -26,3 +33,6 @@ plotly>=5.0.0
 lxml>=4.6.0
 xmlschema>=1.8.0
 openpyxl>=3.0.0
+
+# Model validation dependencies
+libsbml>=5.19.0
