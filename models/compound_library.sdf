@@ -1,0 +1,130 @@
+  Mrv2014 08112024
+
+  1  0  0  0  0  0            999 V2000
+   0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+M  END
+> <ID>
+CO2
+
+> <NAME>
+Carbon Dioxide
+
+> <SMILES>
+O=C=O
+
+> <MARS_RELEVANCE>
+Primary atmospheric component (96%), key substrate for CO2 fixation
+
+> <MOLECULAR_WEIGHT>
+44.01
+
+> <BOILING_POINT>
+-78.5
+
+$$$$
+
+  Mrv2014 08112024
+
+  1  0  0  0  0  0            999 V2000
+   0.0000    0.0000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+M  END
+> <ID>
+H2O
+
+> <NAME>
+Water
+
+> <SMILES>
+O
+
+> <MARS_RELEVANCE>
+Subsurface ice, essential for all biological processes
+
+> <MOLECULAR_WEIGHT>
+18.02
+
+> <MELTING_POINT>
+0.0
+
+$$$$
+
+  Mrv2014 08112024
+
+  2  1  0  0  0  0            999 V2000
+   0.0000    0.0000    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+   1.0000    0.0000    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  3  0  0  0  0
+M  END
+> <ID>
+N2
+
+> <NAME>
+Nitrogen
+
+> <SMILES>
+N#N
+
+> <MARS_RELEVANCE>
+Atmospheric nitrogen (1.9%), source for amino acid synthesis
+
+> <MOLECULAR_WEIGHT>
+28.01
+
+> <BOILING_POINT>
+-195.8
+
+$$$$
+
+  Mrv2014 08112024
+
+  1  0  0  0  0  0            999 V2000
+   0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+M  END
+> <ID>
+CH4
+
+> <NAME>
+Methane
+
+> <SMILES>
+C
+
+> <MARS_RELEVANCE>
+Detected in Mars atmosphere, potential metabolic product
+
+> <MOLECULAR_WEIGHT>
+16.04
+
+> <BOILING_POINT>
+-161.5
+
+$$$$
+
+  Mrv2014 08112024
+
+  3  2  0  0  0  0            999 V2000
+   0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   1.0000    0.0000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   0.0000    1.0000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  2  0  0  0  0
+  1  3  1  0  0  0  0
+M  END
+> <ID>
+FORMIC_ACID
+
+> <NAME>
+Formic Acid
+
+> <SMILES>
+C(=O)O
+
+> <MARS_RELEVANCE>
+Simple organic acid, potential metabolic intermediate
+
+> <MOLECULAR_WEIGHT>
+46.03
+
+> <BOILING_POINT>
+100.8
+
+$$$$

@@ -1,0 +1,71 @@
+name: 🐛 Bug Report
+description: Report a bug in reddust-reclaimer
+labels: ["bug"]
+body:
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug Description
+      description: Clear description of what went wrong
+      placeholder: Describe the bug you encountered...
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which component is affected?
+      options:
+        - Molecular Docking
+        - Codon Optimization
+        - Metabolic Modeling
+        - Data Processing
+        - Installation/Setup
+        - Documentation
+        - CI/CD
+    validations:
+      required: true
+  
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this bug?
+      placeholder: |
+        1. Run command: python scripts/dock_example.py
+        2. Expected: successful docking simulation  
+        3. Actual: error message or unexpected result
+    validations:
+      required: true
+  
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Your system environment
+      placeholder: |
+        - OS: Ubuntu 20.04
+        - Python version: 3.9.7
+        - Package versions: (run `pip list` for relevant packages)
+    validations:
+      required: true
+  
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error Logs
+      description: Any relevant error messages or logs
+      placeholder: Paste error messages here...
+  
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      options:
+        - label: I have searched existing issues for duplicates
+          required: true
+        - label: I have provided a minimal reproducible example
+          required: true
+        - label: I have included relevant error logs
+          required: false

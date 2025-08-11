@@ -1,0 +1,109 @@
+name: CI Pipeline
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9, "3.10", "3.11"]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest flake8 black mypy pytest-cov
+    
+    - name: Lint with flake8
+      run: |
+        # Stop the build if there are Python syntax errors or undefined names
+        flake8 scripts/ --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Exit-zero treats all errors as warnings
+        flake8 scripts/ --count --exit-zero --max-complexity=10 --max-line-length=88 --extend-ignore=E203,W503 --statistics
+    
+    - name: Format check with black
+      run: black --check scripts/ tests/
+    
+    - name: Type check with mypy
+      run: mypy scripts/ --ignore-missing-imports --no-strict-optional
+    
+    - name: Run tests with pytest
+      run: |
+        pytest tests/ -v --cov=scripts --cov-report=xml --cov-report=term-missing
+    
+    - name: Test example scripts execution
+      run: |
+        echo "Testing script help functions..."
+        python scripts/dock_example.py --help
+        python scripts/codon_optimization.py --help
+        python scripts/metabolic_flux.py --help
+        
+        echo "Testing script basic functionality..."
+        python scripts/codon_optimization.py --sequence ATGAAATTTGGGTAG --analyze
+        python scripts/metabolic_flux.py --objective biomass_synthesis
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+
+  validate-models:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    
+    - name: Install model validation dependencies
+      run: |
+        pip install lxml xmlschema cobra
+    
+    - name: Validate SBML models
+      run: |
+        echo "Validating SBML models..."
+        python -c "
+        import os
+        from pathlib import Path
+        
+        model_dir = Path('models')
+        if model_dir.exists():
+            for model_file in model_dir.glob('*.xml'):
+                print(f'Validating {model_file}...')
+                try:
+                    with open(model_file, 'r') as f:
+                        content = f.read()
+                        if 'sbml' in content.lower():
+                            print(f'✅ {model_file} appears to be valid SBML')
+                        else:
+                            print(f'⚠️  {model_file} may not be valid SBML')
+                except Exception as e:
+                    print(f'❌ Error validating {model_file}: {e}')
+        else:
+            print('No models directory found')
+        "

@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # Development environment with Jupyter
+  jupyter:
+    build:
+      context: .
+      target: development
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
+      - jupyter-data:/home/jovyan/.jupyter
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - JUPYTER_TOKEN=mars-terraforming
+    command: conda run -n reddust-reclaimer jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+
+  # Production application
+  app:
+    build:
+      context: .
+      target: production
+    volumes:
+      - ./results:/app/results
+    environment:
+      - PYTHONPATH=/app
+    command: conda run -n reddust-reclaimer python scripts/dock_example.py
+
+  # Testing environment
+  test:
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/app
+    command: conda run -n reddust-reclaimer pytest tests/ -v --cov=scripts
+
+  # Web interface (future enhancement)
+  web:
+    build:
+      context: .
+      target: development
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=web/app.py
+    command: conda run -n reddust-reclaimer python -m flask run --host=0.0.0.0 --port=8080
+    profiles:
+      - web
+
+volumes:
+  jupyter-data:
+
+networks:
+  default:
+    name: reddust-network
