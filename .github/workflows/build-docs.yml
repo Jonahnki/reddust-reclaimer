@@ -20,18 +20,27 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install sphinx sphinx-rtd-theme nbsphinx jupyter
+        pip install sphinx sphinx-rtd-theme nbsphinx jupyter myst-parser
     
-    - name: Convert notebooks to HTML
+    - name: Create docs structure if missing
       run: |
+        mkdir -p docs/source
         mkdir -p docs/notebooks
-        jupyter nbconvert --to html notebooks/*.ipynb --output-dir docs/notebooks/
+        mkdir -p docs/_static
+    
+    - name: Convert notebooks to HTML (if any exist)
+      run: |
+        if [ -d "notebooks" ] && [ "$(ls -A notebooks/*.ipynb 2>/dev/null)" ]; then
+          jupyter nbconvert --to html notebooks/*.ipynb --output-dir docs/notebooks/
+        else
+          echo "No notebooks found, skipping conversion"
+        fi
     
     - name: Generate API documentation
       run: |
         mkdir -p docs/api
-        sphinx-apidoc -o docs/api scripts/
-        cd docs && make html
+        sphinx-apidoc -o docs/api scripts/ --force --module-first
+        cd docs && sphinx-build -b html . _build/html
     
     - name: Deploy to GitHub Pages
       if: github.ref == 'refs/heads/main'
