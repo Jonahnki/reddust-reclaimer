@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="mars_microbe" name="Mars Adapted Microorganism Core Model">
+    <notes>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p>Simplified metabolic model for Mars-adapted extremophile microorganism</p>
+        <p>Focuses on CO2 fixation, water utilization, and biomass production</p>
+        <p>Designed for Mars atmospheric conditions: 96% CO2, low pressure, extreme temperatures</p>
+      </body>
+    </notes>
+    
+    <listOfCompartments>
+      <compartment id="cytosol" name="Cytosol" size="1" constant="true"/>
+      <compartment id="external" name="External Environment" size="1000" constant="true"/>
+    </listOfCompartments>
+    
+    <listOfSpecies>
+      <!-- External metabolites (Mars environment) -->
+      <species id="co2_e" name="Carbon Dioxide External" compartment="external" 
+               initialAmount="960" hasOnlySubstanceUnits="false" boundaryCondition="true"/>
+      <species id="h2o_e" name="Water External" compartment="external" 
+               initialAmount="100" hasOnlySubstanceUnits="false" boundaryCondition="true"/>
+      <species id="o2_e" name="Oxygen External" compartment="external" 
+               initialAmount="1.3" hasOnlySubstanceUnits="false" boundaryCondition="true"/>
+      
+      <!-- Internal metabolites -->
+      <species id="co2_c" name="Carbon Dioxide" compartment="cytosol" 
+               initialAmount="10" hasOnlySubstanceUnits="false"/>
+      <species id="h2o_c" name="Water" compartment="cytosol" 
+               initialAmount="55" hasOnlySubstanceUnits="false"/>
+      <species id="g3p_c" name="Glyceraldehyde-3-phosphate" compartment="cytosol" 
+               initialAmount="0.1" hasOnlySubstanceUnits="false"/>
+      <species id="pyr_c" name="Pyruvate" compartment="cytosol" 
+               initialAmount="0.1" hasOnlySubstanceUnits="false"/>
+      <species id="atp_c" name="ATP" compartment="cytosol" 
+               initialAmount="5" hasOnlySubstanceUnits="false"/>
+      <species id="adp_c" name="ADP" compartment="cytosol" 
+               initialAmount="1" hasOnlySubstanceUnits="false"/>
+      <species id="nadh_c" name="NADH" compartment="cytosol" 
+               initialAmount="0.5" hasOnlySubstanceUnits="false"/>
+      <species id="nad_c" name="NAD+" compartment="cytosol" 
+               initialAmount="2" hasOnlySubstanceUnits="false"/>
+      <species id="biomass_c" name="Biomass" compartment="cytosol" 
+               initialAmount="1" hasOnlySubstanceUnits="false"/>
+    </listOfSpecies>
+    
+    <listOfReactions>
+      <!-- Transport reactions -->
+      <reaction id="CO2_transport" name="CO2 Transport" reversible="true">
+        <listOfReactants>
+          <speciesReference species="co2_e" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="co2_c" stoichiometry="1"/>
+        </listOfProducts>
+      </reaction>
+      
+      <reaction id="H2O_transport" name="Water Transport" reversible="true">
+        <listOfReactants>
+          <speciesReference species="h2o_e" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="h2o_c" stoichiometry="1"/>
+        </listOfProducts>
+      </reaction>
+      
+      <!-- Core metabolic reactions -->
+      <reaction id="CO2_fixation" name="CO2 Fixation (Calvin Cycle)" reversible="false">
+        <listOfReactants>
+          <speciesReference species="co2_c" stoichiometry="3"/>
+          <speciesReference species="h2o_c" stoichiometry="1"/>
+          <speciesReference species="atp_c" stoichiometry="9"/>
+          <speciesReference species="nadh_c" stoichiometry="6"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="g3p_c" stoichiometry="1"/>
+          <speciesReference species="adp_c" stoichiometry="9"/>
+          <speciesReference species="nad_c" stoichiometry="6"/>
+        </listOfProducts>
+      </reaction>
+      
+      <reaction id="glycolysis" name="Glycolysis" reversible="false">
+        <listOfReactants>
+          <speciesReference species="g3p_c" stoichiometry="2"/>
+          <speciesReference species="adp_c" stoichiometry="4"/>
+          <speciesReference species="nad_c" stoichiometry="2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="pyr_c" stoichiometry="2"/>
+          <speciesReference species="atp_c" stoichiometry="4"/>
+          <speciesReference species="nadh_c" stoichiometry="2"/>
+        </listOfProducts>
+      </reaction>
+      
+      <reaction id="respiration" name="Cellular Respiration" reversible="false">
+        <listOfReactants>
+          <speciesReference species="pyr_c" stoichiometry="1"/>
+          <speciesReference species="adp_c" stoichiometry="30"/>
+          <speciesReference species="nad_c" stoichiometry="4"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="co2_c" stoichiometry="3"/>
+          <speciesReference species="h2o_c" stoichiometry="3"/>
+          <speciesReference species="atp_c" stoichiometry="30"/>
+          <speciesReference species="nadh_c" stoichiometry="4"/>
+        </listOfProducts>
+      </reaction>
+      
+      <reaction id="biomass_synthesis" name="Biomass Synthesis" reversible="false">
+        <listOfReactants>
+          <speciesReference species="g3p_c" stoichiometry="1"/>
+          <speciesReference species="pyr_c" stoichiometry="2"/>
+          <speciesReference species="atp_c" stoichiometry="10"/>
+          <speciesReference species="nadh_c" stoichiometry="5"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="biomass_c" stoichiometry="1"/>
+          <speciesReference species="adp_c" stoichiometry="10"/>
+          <speciesReference species="nad_c" stoichiometry="5"/>
+        </listOfProducts>
+      </reaction>
+      
+      <reaction id="ATP_maintenance" name="ATP Maintenance" reversible="false">
+        <listOfReactants>
+          <speciesReference species="atp_c" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="adp_c" stoichiometry="1"/>
+        </listOfProducts>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

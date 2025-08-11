@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "RedDust Reclaimer: Computational Biology Toolkit for Mars Terraforming"
+version: 0.1.0
+date-released: 2024-08-11
+url: "https://github.com/Jonahnki/reddust-reclaimer"
+repository-code: "https://github.com/Jonahnki/reddust-reclaimer"
+authors:
+  - family-names: "Your"
+    given-names: "Name"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+abstract: >-
+  RedDust Reclaimer is a computational biology toolkit designed for Mars 
+  terraforming research. It combines molecular docking simulations, metabolic 
+  modeling, and genetic engineering workflows optimized for Mars environmental 
+  conditions. The toolkit includes example scripts for protein-ligand docking 
+  under Mars atmospheric conditions, codon optimization for extremophile 
+  organisms, and flux balance analysis for Mars resource utilization.
+keywords:
+  - Mars terraforming
+  - computational biology
+  - molecular docking
+  - metabolic modeling
+  - extremophiles
+  - astrobiology
+  - genetic engineering
+  - bioinformatics
+license: MIT
+preferred-citation:
+  type: article
+  title: "Computational Tools for Mars Terraforming: A Molecular Biology Approach"
+  authors:
+    - family-names: "Your"
+      given-names: "Name"
+  journal: "Journal of Astrobiology and Terraforming"
+  year: 2024
+  volume: 1
+  issue: 1
+  start: 1
+  end: 15
+  doi: "10.1000/xyz123"

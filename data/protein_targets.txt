@@ -1,0 +1,40 @@
+# Key Protein Targets for Mars Terraforming Research
+# Format: Protein_Name | PDB_ID | Function | Mars_Relevance_Score | Notes
+
+# CO2 Fixation Enzymes
+Carbonic_Anhydrase | 1CA2 | CO2 + H2O <-> HCO3- + H+ | 9.5 | Process abundant atmospheric CO2
+RuBisCO | 1RCX | CO2 fixation in Calvin cycle | 9.8 | Primary carbon fixation enzyme
+Phosphoenolpyruvate_Carboxylase | 1JQN | CO2 fixation alternative pathway | 8.7 | C4 photosynthesis enzyme
+
+# Extremophile Adaptation Enzymes  
+Cold_Shock_Protein | 1MJC | Maintain protein folding at low temp | 8.7 | Survive -80°C to 20°C range
+DNA_Repair_RecA | 1DRA | Repair radiation-induced DNA damage | 8.9 | High radiation environment
+Catalase | 1DGH | Decompose hydrogen peroxide | 8.2 | Oxidative stress protection
+Superoxide_Dismutase | 1SRD | Remove superoxide radicals | 8.4 | Radiation damage protection
+
+# Metabolic Enzymes
+Methane_Monooxygenase | 1MMO | CH4 oxidation | 7.8 | Process trace atmospheric methane
+Nitrate_Reductase | 1Q16 | NO3- -> NO2- reduction | 8.1 | Nitrogen metabolism
+Formate_Dehydrogenase | 1FDO | Formate oxidation | 7.5 | C1 metabolism
+Acetyl_CoA_Synthase | 1RU3 | CO2 + CoA -> Acetyl-CoA | 8.6 | Carbon assimilation
+
+# Stress Response Proteins
+Heat_Shock_Protein_70 | 1HSP | Protein folding under stress | 8.0 | Temperature fluctuation adaptation
+Trehalose_Synthase | 1EZ4 | Trehalose production | 7.9 | Osmotic stress protection
+Antifreeze_Protein | 1EZG | Prevent ice crystal formation | 8.8 | Subzero temperature survival
+
+# Transport Proteins
+Aquaporin | 1J4N | Water transport | 8.3 | Efficient water utilization
+CO2_Transporter | 1EK9 | CO2 membrane transport | 9.0 | CO2 concentration mechanism
+Iron_Transporter | 1BY5 | Iron uptake and storage | 7.6 | Mars soil iron utilization
+
+# Synthetic Biology Targets
+T7_RNA_Polymerase | 1ARO | RNA synthesis | 7.2 | Genetic engineering tool
+Cas9_Nuclease | 4UN3 | DNA editing | 7.4 | Genome modification
+Green_Fluorescent_Protein | 1GFL | Reporter protein | 6.5 | Biosensor applications
+
+# Notes:
+# Mars_Relevance_Score: 1-10 scale based on importance for Mars terraforming
+# PDB_ID: Protein Data Bank identifier for structure download
+# Function: Primary enzymatic or biological function
+# Download structures: wget https://files.rcsb.org/download/{PDB_ID}.pdb

@@ -1,0 +1,83 @@
+{
+  "atmospheric_composition": {
+    "co2": {
+      "percentage": 95.97,
+      "partial_pressure_pa": 636,
+      "seasonal_variation": "±5%",
+      "notes": "Primary carbon source for biological CO2 fixation"
+    },
+    "n2": {
+      "percentage": 1.93,
+      "partial_pressure_pa": 12.8,
+      "seasonal_variation": "±2%",
+      "notes": "Nitrogen source for amino acid and nucleotide synthesis"
+    },
+    "ar": {
+      "percentage": 1.93,
+      "partial_pressure_pa": 12.8,
+      "seasonal_variation": "minimal",
+      "notes": "Inert gas, no biological significance"
+    },
+    "o2": {
+      "percentage": 0.13,
+      "partial_pressure_pa": 0.86,
+      "seasonal_variation": "±50%",
+      "notes": "Limited oxygen for aerobic respiration"
+    },
+    "co": {
+      "percentage": 0.08,
+      "partial_pressure_pa": 0.53,
+      "seasonal_variation": "±20%",
+      "notes": "Potential carbon source, toxic to most organisms"
+    }
+  },
+  "physical_conditions": {
+    "temperature": {
+      "min_k": 193,
+      "max_k": 293,
+      "average_k": 233,
+      "seasonal_range": "±40K",
+      "notes": "Extreme temperature variations require psychrophilic adaptations"
+    },
+    "pressure": {
+      "min_pa": 400,
+      "max_pa": 870,
+      "average_pa": 636,
+      "altitude_variation": "exponential decrease",
+      "notes": "Low pressure affects gas solubility and enzyme kinetics"
+    },
+    "radiation": {
+      "cosmic_ray_flux": "100x Earth surface",
+      "uv_radiation": "No ozone protection",
+      "solar_particle_events": "periodic high-energy bursts",
+      "notes": "High radiation requires DNA repair mechanisms"
+    }
+  },
+  "seasonal_variations": {
+    "dust_storms": {
+      "frequency": "every 2-3 Earth years",
+      "duration_days": "30-100",
+      "impact": "reduced solar irradiance, temperature drops"
+    },
+    "polar_ice_caps": {
+      "co2_sublimation": "seasonal CO2 pressure changes",
+      "water_ice": "permanent polar caps",
+      "subsurface_ice": "widespread permafrost"
+    }
+  },
+  "biological_implications": {
+    "carbon_availability": "abundant CO2 for autotrophic growth",
+    "water_scarcity": "requires efficient water recycling",
+    "energy_sources": "limited to chemosynthesis or imported nutrients",
+    "protection_needed": "radiation shielding, pressure vessels"
+  },
+  "data_sources": [
+    "NASA Mars Atmosphere and Volatile Evolution (MAVEN)",
+    "ESA Mars Express",
+    "NASA Curiosity Rover",
+    "NASA Perseverance Rover",
+    "Mars Climate Database (LMD/OU)"
+  ],
+  "last_updated": "2024-08-11",
+  "version": "1.0"
+}
