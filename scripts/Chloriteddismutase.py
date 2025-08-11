@@ -1,4 +1,4 @@
-import cPickle, base64
+import pickle, base64
 try:
 	from SimpleSession.versions.v65 import beginRestore,\
 	    registerAfterModelsCB, reportRestoreError, checkVersion
