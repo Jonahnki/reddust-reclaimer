@@ -6,7 +6,7 @@ Carbonic_Anhydrase | 1CA2 | CO2 + H2O <-> HCO3- + H+ | 9.5 | Process abundant at
 RuBisCO | 1RCX | CO2 fixation in Calvin cycle | 9.8 | Primary carbon fixation enzyme
 Phosphoenolpyruvate_Carboxylase | 1JQN | CO2 fixation alternative pathway | 8.7 | C4 photosynthesis enzyme
 
-# Extremophile Adaptation Enzymes  
+# Extremophile Adaptation Enzymes
 Cold_Shock_Protein | 1MJC | Maintain protein folding at low temp | 8.7 | Survive -80°C to 20°C range
 DNA_Repair_RecA | 1DRA | Repair radiation-induced DNA damage | 8.9 | High radiation environment
 Catalase | 1DGH | Decompose hydrogen peroxide | 8.2 | Oxidative stress protection

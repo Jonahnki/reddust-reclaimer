@@ -11,11 +11,11 @@ authors:
     given-names: "Name"
     orcid: "https://orcid.org/0000-0000-0000-0000"
 abstract: >-
-  RedDust Reclaimer is a computational biology toolkit designed for Mars 
-  terraforming research. It combines molecular docking simulations, metabolic 
-  modeling, and genetic engineering workflows optimized for Mars environmental 
-  conditions. The toolkit includes example scripts for protein-ligand docking 
-  under Mars atmospheric conditions, codon optimization for extremophile 
+  RedDust Reclaimer is a computational biology toolkit designed for Mars
+  terraforming research. It combines molecular docking simulations, metabolic
+  modeling, and genetic engineering workflows optimized for Mars environmental
+  conditions. The toolkit includes example scripts for protein-ligand docking
+  under Mars atmospheric conditions, codon optimization for extremophile
   organisms, and flux balance analysis for Mars resource utilization.
 keywords:
   - Mars terraforming

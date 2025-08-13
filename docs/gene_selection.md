@@ -140,10 +140,10 @@ This document outlines the comprehensive gene selection strategy for the RedDust
 
 #### Scoring Algorithm
 ```
-Mars_Score = (Psychrotolerance × 0.3) + 
-             (Halotolerance × 0.2) + 
-             (Activity × 0.25) + 
-             (Stability × 0.15) + 
+Mars_Score = (Psychrotolerance × 0.3) +
+             (Halotolerance × 0.2) +
+             (Activity × 0.25) +
+             (Stability × 0.15) +
              (Expression × 0.1)
 ```
 
@@ -332,6 +332,6 @@ Mars_Score = (Psychrotolerance × 0.3) +
 
 ---
 
-*Document Version: 1.0*  
-*Last Updated: 2024*  
+*Document Version: 1.0*
+*Last Updated: 2024*
 *Author: RedDust Reclaimer AI Team*

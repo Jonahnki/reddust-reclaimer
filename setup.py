@@ -64,9 +64,9 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "mars-dock=scripts.dock_example:main",
-            "mars-codon=scripts.codon_optimization:main",
-            "mars-flux=scripts.metabolic_flux:main",
+            "mars-dock=reddust_reclaimer.dock_example:main",
+            "mars-codon=reddust_reclaimer.codon_optimization:main",
+            "mars-flux=reddust_reclaimer.metabolic_flux:main",
         ],
     },
     include_package_data=True,
