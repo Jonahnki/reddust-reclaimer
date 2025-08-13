@@ -1,4 +1,6 @@
-![RedDust Reclaimer Banner](assets/banner_1.webp)
+<p align="center">
+  <img src="assets/banner_1.webp" alt="RedDust Reclaimer Banner" width="100%" />
+</p>
 
 
 # 🧬 RedDust Reclaimer
