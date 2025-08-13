@@ -1,4 +1,3 @@
-````markdown
 # 🧬 RedDust Reclaimer
 
 ![CI (Micromamba Matrix)](https://github.com/Jonahnki/reddust-reclaimer/actions/workflows/ci-conda.yml/badge.svg)  
