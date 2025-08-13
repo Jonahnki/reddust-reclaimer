@@ -338,5 +338,3 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
   * `nbQA` runs Black and Flake8 over notebooks
   * To skip files, add excludes to `.pre-commit-config.yaml` or commit with `-n` to bypass temporarily
-If you want me to generate a ready-to-go file you can save, just ask!
-```
