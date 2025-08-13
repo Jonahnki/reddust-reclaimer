@@ -281,8 +281,8 @@ If you use this toolkit in your research, please cite:
 ```bibtex
 @software{reddust_reclaimer,
   title={RedDust Reclaimer: Computational Biology Toolkit for Mars Terraforming},
-  author={Your Name},
-  year={2024},
+  author={John Adedeji},
+  year={2025},
   url={https://github.com/Jonahnki/reddust-reclaimer},
   version={0.1.0}
 }
