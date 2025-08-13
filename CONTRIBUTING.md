@@ -160,20 +160,20 @@ def test_performance_benchmarks():
 ```python
 def mars_function(param1: str, param2: int = 42) -> bool:
     """Brief description of function.
-    
+
     Longer description explaining Mars terraforming relevance
     and algorithm details.
-    
+
     Args:
         param1: Description of first parameter
         param2: Description with default value
-        
+
     Returns:
         Description of return value
-        
+
     Raises:
         ValueError: When input is invalid
-        
+
     Example:
         >>> result = mars_function("CO2", 273)
         >>> print(result)

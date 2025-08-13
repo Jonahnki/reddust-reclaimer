@@ -10,7 +10,7 @@ body:
       placeholder: Describe the feature you'd like to request...
     validations:
       required: true
-  
+
   - type: dropdown
     id: component
     attributes:
@@ -27,7 +27,7 @@ body:
         - New Module
     validations:
       required: true
-  
+
   - type: textarea
     id: use-case
     attributes:
@@ -40,7 +40,7 @@ body:
         - Visualize docking results in 3D
     validations:
       required: true
-  
+
   - type: textarea
     id: proposed-solution
     attributes:
@@ -51,7 +51,7 @@ body:
         - API design suggestions
         - Algorithm preferences
         - Integration points
-  
+
   - type: dropdown
     id: priority
     attributes:
@@ -64,7 +64,7 @@ body:
         - Low - Minor enhancement
     validations:
       required: true
-  
+
   - type: checkboxes
     id: checklist
     attributes:

@@ -318,6 +318,6 @@ The integrated model successfully predicts organism survival and performance und
 
 ---
 
-*Document Version: 1.0*  
-*Last Updated: 2024*  
+*Document Version: 1.0*
+*Last Updated: 2024*
 *Author: RedDust Reclaimer AI Team*

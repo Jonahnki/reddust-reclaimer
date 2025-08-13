@@ -10,7 +10,7 @@ body:
       placeholder: Describe the bug you encountered...
     validations:
       required: true
-  
+
   - type: dropdown
     id: component
     attributes:
@@ -26,7 +26,7 @@ body:
         - CI/CD
     validations:
       required: true
-  
+
   - type: textarea
     id: reproduction
     attributes:
@@ -34,11 +34,11 @@ body:
       description: How can we reproduce this bug?
       placeholder: |
         1. Run command: python scripts/dock_example.py
-        2. Expected: successful docking simulation  
+        2. Expected: successful docking simulation
         3. Actual: error message or unexpected result
     validations:
       required: true
-  
+
   - type: textarea
     id: environment
     attributes:
@@ -50,14 +50,14 @@ body:
         - Package versions: (run `pip list` for relevant packages)
     validations:
       required: true
-  
+
   - type: textarea
     id: logs
     attributes:
       label: Error Logs
       description: Any relevant error messages or logs
       placeholder: Paste error messages here...
-  
+
   - type: checkboxes
     id: checklist
     attributes:

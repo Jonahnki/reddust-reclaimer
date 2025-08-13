@@ -3,8 +3,8 @@ RedDust Reclaimer Documentation
 
 Welcome to RedDust Reclaimer's documentation!
 
-RedDust Reclaimer is a synthetic biology toolkit for Mars terraforming, 
-featuring molecular docking, codon optimization, and metabolic modeling 
+RedDust Reclaimer is a synthetic biology toolkit for Mars terraforming,
+featuring molecular docking, codon optimization, and metabolic modeling
 capabilities for Bacillus subtilis engineering.
 
 .. toctree::
