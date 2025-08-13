@@ -1,0 +1,904 @@
+#!/bin/bash
+# setup_project_structure.sh - Complete project setup for RedDust Reclaimer
+
+set -e  # Exit on any error
+
+echo "🌌 Setting up RedDust Reclaimer project structure..."
+
+# ============================================================================
+# DIRECTORY STRUCTURE
+# ============================================================================
+
+echo "📁 Creating directory structure..."
+
+mkdir -p {
+    src/{gene_optimization,pathway_modeling,enzyme_engineering,genome_engineering,utils},
+    tests/{unit,integration,bioinformatics,benchmarks},
+    docs/{source,_static,_templates},
+    data/{raw,processed,reference,results},
+    notebooks/{analysis,tutorials,examples},
+    workflows/{nextflow,snakemake,cwl},
+    scripts/{automation,analysis,deployment},
+    models/{metabolic,structural,ml},
+    analysis/{omics,statistics,visualization},
+    docker,
+    .github/{workflows,ISSUE_TEMPLATE,PULL_REQUEST_TEMPLATE}
+}
+
+# ============================================================================
+# CONFIGURATION FILES
+# ============================================================================
+
+echo "⚙️ Creating configuration files..."
+
+# requirements.txt
+cat > requirements.txt << 'EOF'
+# Core Scientific Computing
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Bioinformatics
+biopython>=1.81
+cobra>=0.26.3
+escher>=1.7.3
+pysam>=0.21.0
+biotite>=0.37.0
+
+# Structural Biology
+mdanalysis>=2.5.0
+nglview>=3.0.3
+
+# Machine Learning
+scikit-learn>=1.3.0
+tensorflow>=2.13.0
+torch>=2.0.0
+optuna>=3.3.0
+
+# Data Processing
+pyyaml>=6.0
+toml>=0.10.2
+click>=8.1.0
+tqdm>=4.65.0
+
+# Web & APIs
+requests>=2.31.0
+aiohttp>=3.8.0
+flask>=2.3.0
+
+# Development Tools
+black>=23.0.0
+isort>=5.12.0
+ruff>=0.0.280
+mypy>=1.5.0
+pre-commit>=3.3.0
+EOF
+
+# requirements-dev.txt
+cat > requirements-dev.txt << 'EOF'
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-xdist>=3.3.0
+pytest-mock>=3.11.0
+pytest-benchmark>=4.0.0
+pytest-timeout>=2.1.0
+nbval>=0.10.0
+
+# Documentation
+sphinx>=7.1.0
+sphinx-rtd-theme>=1.3.0
+myst-parser>=2.0.0
+sphinxcontrib-mermaid>=0.9.0
+jupyter-book>=0.15.0
+
+# Code Quality
+bandit>=1.7.5
+safety>=2.3.0
+semgrep>=1.35.0
+vulture>=2.7
+
+# Jupyter
+jupyter>=1.0.0
+jupyterlab>=4.0.0
+notebook>=7.0.0
+ipywidgets>=8.1.0
+
+# Development Utils
+pre-commit>=3.3.0
+commitizen>=3.6.0
+bump2version>=1.0.1
+watchdog>=3.0.0
+EOF
+
+# environment.yml for conda
+cat > environment.yml << 'EOF'
+name: reddust_env
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - matplotlib
+  - seaborn
+  - biopython
+  - cobra
+  - mdanalysis
+  - pytorch
+  - tensorflow
+  - scikit-learn
+  - jupyter
+  - pytest
+  - black
+  - isort
+  - pip
+  - pip:
+      - escher
+      - optuna
+      - ruff
+      - mypy
+      - bandit
+      - safety
+EOF
+
+# pyproject.toml
+cat > pyproject.toml << 'EOF'
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reddust-reclaimer"
+version = "0.1.0"
+description = "Synthetic biology for Mars perchlorate bioremediation using engineered Bacillus subtilis"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "RedDust Reclaimer Team", email = "contact@reddust-reclaimer.org"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "biopython>=1.81",
+    "cobra>=0.26.3",
+    "scikit-learn>=1.3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "ruff>=0.0.280",
+    "mypy>=1.5.0",
+]
+docs = [
+    "sphinx>=7.1.0",
+    "sphinx-rtd-theme>=1.3.0",
+    "myst-parser>=2.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Jonahnki/reddust-reclaimer"
+Repository = "https://github.com/Jonahnki/reddust-reclaimer"
+Documentation = "https://jonahnki.github.io/reddust-reclaimer"
+Issues = "https://github.com/Jonahnki/reddust-reclaimer/issues"
+
+[project.scripts]
+reddust = "src.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = ["*.yml", "*.yaml", "*.json", "*.csv", "*.fasta"]
+
+# Black configuration
+[tool.black]
+line-length = 88
+target-version = ['py39', 'py310', 'py311']
+include = '\.pyi?
+extend-exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+# isort configuration
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["src", "tests"]
+known_third_party = ["numpy", "pandas", "biopython", "cobra", "sklearn"]
+
+# Ruff configuration
+[tool.ruff]
+target-version = "py39"
+line-length = 88
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+"tests/**/*" = ["PLR2004", "S101", "TID252"]
+
+# MyPy configuration
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = [
+    "cobra.*",
+    "Bio.*",
+    "mdanalysis.*",
+    "escher.*"
+]
+ignore_missing_imports = true
+
+# Pytest configuration
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=src",
+    "--cov-branch",
+    "--cov-report=term-missing",
+    "--cov-fail-under=80"
+]
+testpaths = ["tests"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "bioinformatics: marks tests as bioinformatics pipeline tests",
+    "gpu: marks tests that require GPU",
+]
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "setup.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+EOF
+
+# .pre-commit-config.yaml
+cat > .pre-commit-config.yaml << 'EOF'
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: debug-statements
+      - id: check-docstring-first
+
+  - repo: https://github.com/psf/black
+    rev: 23.7.0
+    hooks:
+      - id: black
+        language_version: python3.11
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.0.280
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.5.1
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-requests, types-PyYAML]
+
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        args: ["-c", "pyproject.toml"]
+        additional_dependencies: ["bandit[toml]"]
+
+  - repo: https://github.com/nbQA-dev/nbQA
+    rev: 1.7.0
+    hooks:
+      - id: nbqa-black
+      - id: nbqa-isort
+        args: ["--profile=black"]
+      - id: nbqa-ruff
+EOF
+
+# Dockerfile
+cat > Dockerfile << 'EOF'
+# Multi-stage build for RedDust Reclaimer
+FROM python:3.11-slim as base
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    git \
+    libhdf5-dev \
+    libnetcdf-dev \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Development stage
+FROM base as development
+
+COPY requirements-dev.txt .
+RUN pip install -r requirements-dev.txt
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+RUN pip install -e .
+
+CMD ["python", "-m", "pytest"]
+
+# Production stage
+FROM base as production
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY src/ ./src/
+COPY pyproject.toml setup.py ./
+RUN pip install .
+
+# Create non-root user
+RUN useradd --create-home --shell /bin/bash reddust
+USER reddust
+
+EXPOSE 8000
+CMD ["python", "-m", "src.api"]
+EOF
+
+# Docker Compose for development
+cat > docker-compose.yml << 'EOF'
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/app
+      - /app/.git
+    ports:
+      - "8000:8000"
+      - "8888:8888"  # Jupyter
+    environment:
+      - PYTHONPATH=/app/src
+      - ENVIRONMENT=development
+    command: ["python", "-m", "jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: reddust
+      POSTGRES_USER: reddust
+      POSTGRES_PASSWORD: development
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
+EOF
+
+# GitHub Issue Templates
+mkdir -p .github/ISSUE_TEMPLATE
+
+cat > .github/ISSUE_TEMPLATE/bug_report.yml << 'EOF'
+name: 🐛 Bug Report
+description: File a bug report to help us improve
+title: "[BUG]: "
+labels: ["bug", "triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! 🌌
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submission Checks
+      options:
+        - label: I have searched existing issues
+          required: true
+        - label: I am using the latest version
+          required: true
+        - label: I have read the documentation
+          required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which component is affected?
+      options:
+        - Gene Optimization
+        - Pathway Modeling  
+        - Enzyme Engineering
+        - Genome Engineering
+        - Analysis Pipeline
+        - Documentation
+        - CI/CD
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is
+      placeholder: Tell us what happened!
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What you expected to happen
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: |
+        Please provide details about your environment:
+      value: |
+        - OS: 
+        - Python version: 
+        - Package version: 
+        - Browser (if applicable): 
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Please copy and paste any relevant log output
+      render: shell
+EOF
+
+cat > .github/ISSUE_TEMPLATE/feature_request.yml << 'EOF'
+name: 🚀 Feature Request
+description: Suggest a new feature or enhancement
+title: "[FEATURE]: "
+labels: ["enhancement", "triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature for RedDust Reclaimer! 🌌
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submission Checks
+      options:
+        - label: I have searched existing issues and discussions
+          required: true
+        - label: This feature aligns with the project goals
+          required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which component would this feature affect?
+      options:
+        - Gene Optimization
+        - Pathway Modeling
+        - Enzyme Engineering  
+        - Genome Engineering
+        - Machine Learning
+        - Analysis Pipeline
+        - Documentation
+        - CI/CD
+        - API
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve?
+      placeholder: I'm frustrated when...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the feature you'd like to see
+      placeholder: I would like...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Any alternative solutions or features you've considered?
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - Low
+        - Medium  
+        - High
+        - Critical
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other context, mockups, or examples
+EOF
+
+# Pull Request Template
+cat > .github/PULL_REQUEST_TEMPLATE.md << 'EOF'
+## 🌌 RedDust Reclaimer Pull Request
+
+### Description
+Brief description of changes made.
+
+### Type of Change
+- [ ] 🐛 Bug fix (non-breaking change which fixes an issue)
+- [ ] ✨ New feature (non-breaking change which adds functionality)
+- [ ] 💥 Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] 📚 Documentation update
+- [ ] 🔧 Maintenance/refactoring
+- [ ] 🧪 Tests
+
+### Component(s) Affected
+- [ ] Gene Optimization
+- [ ] Pathway Modeling
+- [ ] Enzyme Engineering
+- [ ] Genome Engineering
+- [ ] Machine Learning
+- [ ] Analysis Pipeline
+- [ ] CI/CD
+- [ ] Documentation
+
+### Testing
+- [ ] Unit tests pass locally
+- [ ] Integration tests pass locally  
+- [ ] Added new tests for new functionality
+- [ ] Existing tests are still relevant
+
+### Bioinformatics Validation
+- [ ] Sequence validation completed
+- [ ] Metabolic model validation passed
+- [ ] Structural analysis completed (if applicable)
+- [ ] Mars environment constraints validated
+
+### Checklist
+- [ ] My code follows the style guidelines of this project
+- [ ] I have performed a self-review of my own code
+- [ ] I have commented my code, particularly in hard-to-understand areas
+- [ ] I have made corresponding changes to the documentation
+- [ ] My changes generate no new warnings
+- [ ] New and existing unit tests pass locally with my changes
+- [ ] Any dependent changes have been merged and published
+
+### Screenshots/Examples
+If applicable, add screenshots or examples of the changes.
+
+### Related Issues
+Closes #(issue number)
+Relates to #(issue number)
+
+### Notes for Reviewers
+Any specific areas you'd like reviewers to focus on.
+EOF
+
+# Makefile for common tasks
+cat > Makefile << 'EOF'
+.PHONY: help install dev-install test lint format clean docs docker-build docker-run
+
+# Variables
+PYTHON := python3.11
+PIP := pip
+PYTEST := pytest
+BLACK := black
+ISORT := isort
+RUFF := ruff
+MYPY := mypy
+
+help: ## Show this help message
+	@echo "RedDust Reclaimer - Available commands:"
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $1, $2}'
+
+install: ## Install production dependencies
+	$(PIP) install -r requirements.txt
+	$(PIP) install -e .
+
+dev-install: ## Install development dependencies
+	$(PIP) install -r requirements.txt
+	$(PIP) install -r requirements-dev.txt
+	$(PIP) install -e .
+	pre-commit install
+
+test: ## Run all tests
+	$(PYTEST) tests/ -v --cov=src --cov-report=html
+
+test-fast: ## Run fast tests only
+	$(PYTEST) tests/ -v -m "not slow"
+
+test-bioinformatics: ## Run bioinformatics pipeline tests
+	$(PYTEST) tests/bioinformatics/ -v
+
+lint: ## Run all linting
+	$(RUFF) check src/ tests/
+	$(MYPY) src/
+	bandit -r src/
+
+format: ## Format code
+	$(BLACK) src/ tests/
+	$(ISORT) src/ tests/
+
+format-check: ## Check code formatting
+	$(BLACK) --check src/ tests/
+	$(ISORT) --check-only src/ tests/
+
+clean: ## Clean up build artifacts
+	rm -rf build/
+	rm -rf dist/
+	rm -rf *.egg-info
+	rm -rf .coverage
+	rm -rf htmlcov/
+	rm -rf .pytest_cache/
+	rm -rf .mypy_cache/
+	find . -type d -name __pycache__ -delete
+	find . -type f -name "*.pyc" -delete
+
+docs: ## Build documentation
+	cd docs && make html
+
+docs-serve: ## Serve documentation locally  
+	cd docs/_build/html && $(PYTHON) -m http.server 8080
+
+docker-build: ## Build Docker image
+	docker build -t reddust-reclaimer:latest .
+
+docker-run: ## Run Docker container
+	docker-compose up -d
+
+security: ## Run security checks
+	bandit -r src/
+	safety check -r requirements.txt
+
+benchmark: ## Run performance benchmarks
+	$(PYTEST) tests/benchmarks/ --benchmark-json=benchmark_results.json
+
+all: format lint test ## Run format, lint, and test
+EOF
+
+# Basic src/__init__.py
+cat > src/__init__.py << 'EOF'
+"""
+RedDust Reclaimer: Synthetic Biology for Mars Perchlorate Bioremediation
+
+A comprehensive toolkit for engineering Bacillus subtilis to perform
+perchlorate detoxification under Martian environmental conditions.
+"""
+
+__version__ = "0.1.0"
+__author__ = "RedDust Reclaimer Team"
+__email__ = "contact@reddust-reclaimer.org"
+
+from . import gene_optimization, pathway_modeling, enzyme_engineering, genome_engineering
+
+__all__ = [
+    "gene_optimization",
+    "pathway_modeling", 
+    "enzyme_engineering",
+    "genome_engineering",
+    "__version__"
+]
+EOF
+
+# Basic CLI
+cat > src/cli.py << 'EOF'
+"""Command-line interface for RedDust Reclaimer."""
+
+import click
+from . import __version__
+
+@click.group()
+@click.version_option(version=__version__)
+def main():
+    """RedDust Reclaimer: Mars Perchlorate Bioremediation Toolkit"""
+    pass
+
+@main.command()
+def optimize_genes():
+    """Optimize gene sequences for B. subtilis expression."""
+    click.echo("🧬 Starting gene optimization pipeline...")
+    # Implementation here
+
+@main.command()
+def model_pathway():
+    """Model metabolic pathways for perchlorate degradation."""
+    click.echo("🔗 Starting pathway modeling...")
+    # Implementation here
+
+@main.command()  
+def engineer_enzymes():
+    """Engineer enzymes for Mars conditions."""
+    click.echo("⚛️ Starting enzyme engineering...")
+    # Implementation here
+
+if __name__ == "__main__":
+    main()
+EOF
+
+# Basic test files
+cat > tests/__init__.py << 'EOF'
+"""Test suite for RedDust Reclaimer."""
+EOF
+
+cat > tests/conftest.py << 'EOF'
+"""Pytest configuration and fixtures."""
+
+import pytest
+import tempfile
+import os
+from pathlib import Path
+
+@pytest.fixture
+def temp_dir():
+    """Create a temporary directory for tests."""
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        yield Path(tmp_dir)
+
+@pytest.fixture
+def sample_data_dir():
+    """Path to sample data directory."""
+    return Path(__file__).parent / "data"
+
+@pytest.fixture
+def mars_conditions():
+    """Mars environmental conditions for testing."""
+    return {
+        "temperature": -40,  # Celsius
+        "pressure": 600,     # Pa
+        "perchlorate_conc": 0.5,  # % w/w
+        "co2_conc": 0.95,    # Atmospheric fraction
+        "uv_exposure": "high"
+    }
+EOF
+
+echo "✅ Project structure setup complete!"
+echo ""
+echo "🚀 Next steps:"
+echo "   1. Run: chmod +x setup_project_structure.sh && ./setup_project_structure.sh"
+echo "   2. Initialize git: git init && git add . && git commit -m 'Initial project setup'"
+echo "   3. Install dependencies: make dev-install"
+echo "   4. Run tests: make test"
+echo "   5. Set up pre-commit: pre-commit install"
+echo ""
+echo "🌌 Your RedDust Reclaimer project is ready for Mars! 🚀"
