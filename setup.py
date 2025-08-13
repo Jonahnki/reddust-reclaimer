@@ -79,4 +79,3 @@ setup(
         "Documentation": "https://jonahnki.github.io/reddust-reclaimer/",
     },
 )
-
