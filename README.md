@@ -2,7 +2,6 @@
   <img src="assets/banner_1.webp" alt="RedDust Reclaimer Banner" width="100%" />
 </p>
 
-
 # 🧬 RedDust Reclaimer
 
 [![Micromamba CI Status](https://img.shields.io/github/actions/workflow/status/Jonahnki/reddust-reclaimer/ci-conda.yml?branch=main&label=Micromamba%20CI&style=flat-square&color=2ea44f)](https://github.com/Jonahnki/reddust-reclaimer/actions/workflows/ci-conda.yml)
