@@ -1,4 +1,4 @@
-![RedDust Reclaimer Banner](assets/banner_1.webp)
+![RedDust Reclaimer Banner](https://raw.githubusercontent.com/Jonahnki/reddust-reclaimer/feature/restructure_and_prepare_squash/assets/banner_1.webp)
 
 
 # 🧬 RedDust Reclaimer
