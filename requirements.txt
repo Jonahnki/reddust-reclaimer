@@ -35,4 +35,4 @@ xmlschema>=1.8.0
 openpyxl>=3.0.0
 
 # Model validation dependencies
-libsbml>=5.19.0
+python-libsbml>=5.19.0

@@ -1,29 +1,56 @@
 # 🧬 RedDust Reclaimer
 
+![CI (Micromamba Matrix)](https://github.com/Jonahnki/reddust-reclaimer/actions/workflows/ci-conda.yml/badge.svg)
+![Docs](https://img.shields.io/badge/docs-Sphinx-blue)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+![Python](https://img.shields.io/badge/Python-3.8--3.11-blue)
+
 A computational biology toolkit for Mars terraforming research that combines molecular docking, metabolic modeling, and genetic engineering workflows.
 
 ## 🚀 Quickstart (5 minutes)
 
 ### Prerequisites
-- Python 3.9+ 
+- Python 3.8–3.11
 - Git
+- Optional: Micromamba/Conda for reproducible envs
+- Optional: Docker
 
-### Quick Setup
+### Quick Setup (Micromamba/Conda recommended)
 ```bash
 git clone https://github.com/Jonahnki/reddust-reclaimer.git
 cd reddust-reclaimer
-pip install -r requirements.txt
+
+# Create environment with micromamba (recommended)
+# If you have conda instead, replace `micromamba` with `conda`
+micromamba create -y -f environment.yml
+micromamba activate reddust-reclaimer
+
+# Dev extras
+python -m pip install -e . pytest-xdist
 
 # Run example workflows
-python scripts/dock_example.py
-python scripts/codon_optimization.py --sequence ATGCGATCGTAGC
+python scripts/dock_example.py --help
+python scripts/codon_optimization.py --sequence ATGCGATCGTAGC --analyze
 python scripts/metabolic_flux.py --model models/mars_microbe_core.xml
 ```
 
-### Docker Option (Recommended)
+### Alternative: Pip-only setup
 ```bash
-docker pull jonahnki/reddust-reclaimer:latest
-docker run -it --rm -v $(pwd):/workspace reddust-reclaimer python scripts/dock_example.py
+pip install -r requirements.txt
+python -m pip install -e .
+```
+
+### Docker Option
+```bash
+# If an image is published
+docker pull jonahnki/reddust-reclaimer:latest || true
+
+# Or build locally
+docker build -t reddust-reclaimer:latest .
+
+# Run a workflow inside the container
+docker run -it --rm -v $(pwd):/workspace -w /workspace reddust-reclaimer:latest \
+  python scripts/dock_example.py --help
 ```
 
 ### Verify Installation
@@ -86,7 +113,7 @@ network.print_flux_analysis(results)
 
 ### Phase 1: Foundation (v0.1-0.3) ✅
 - [x] Core docking and metabolic modeling workflows
-- [x] Example scripts and interactive demos  
+- [x] Example scripts and interactive demos
 - [x] CI/CD pipeline and documentation
 
 ### Phase 2: Advanced Features (v0.4-0.6) 🚧
@@ -159,6 +186,47 @@ black scripts/ tests/
 flake8 scripts/ tests/
 ```
 
+### Pre-commit hooks (recommended)
+```bash
+pre-commit install          # enable git hooks
+pre-commit run --all-files  # run hooks on entire repo
+```
+
+## 🛠️ Makefile shortcuts
+
+Common tasks are available via the `Makefile`:
+```bash
+make install       # install deps and package
+make test          # run tests with coverage
+make format        # apply black
+make format-check  # verify formatting
+make lint          # flake8 + mypy
+make examples      # run example scripts
+make docs          # build Sphinx docs
+```
+
+## 🧵 Nextflow pipeline
+
+We provide a minimal Nextflow workflow at `workflows/nextflow/main.nf`.
+
+Run with the conda environment:
+```bash
+nextflow run workflows/nextflow/main.nf \
+  --sequence ATGAAATTTGGGTAG \
+  --model models/mars_microbe_core.xml \
+  --outdir results/nextflow \
+  --threads 2
+```
+
+Parameters:
+- `--sequence` Codon optimization input sequence (default: example sequence)
+- `--model` SBML model for FBA (default: `models/mars_microbe_core.xml`)
+- `--outdir` Output directory (default: `results/nextflow`)
+- `--threads` CPU threads per process (default: 2)
+- `--dry_run` Use `--dry_run true` to exercise the pipeline without heavy computation
+
+Note: A default Nextflow config at `workflows/nextflow/nextflow.config` enables conda and sets sensible defaults. You can also run with Docker using profile `-profile docker` if you have a built/published image.
+
 ## 📖 Documentation
 
 - [API Documentation](https://jonahnki.github.io/reddust-reclaimer/)
@@ -199,3 +267,34 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **🚀 Ready to contribute to Mars terraforming research? Get started with the quickstart guide above!**
+
+---
+
+## 🧰 CI & Artifacts
+
+- CI is powered by GitHub Actions using Micromamba with a Python 3.8–3.11 matrix (`.github/workflows/ci-conda.yml`).
+- Linting (flake8/black), typing (mypy), tests (pytest + coverage), notebook execution, security scans (pip-audit, bandit), and Docker image build are included.
+- Artifacts uploaded from CI include:
+  - `coverage.xml`, executed notebooks under `build/notebooks-executed/`
+  - `data/processed/**`, `docs/_build/**`
+  - `results/**` and `logs/**` (collected from the runner even if `.gitignore` excludes them)
+
+Note: An older pip-based CI file (`.github/workflows/ci.yml`) is retained for manual runs only and does not trigger automatically.
+
+---
+
+## 🧯 Troubleshooting
+
+- **RDKit installation issues**
+  - If `rdkit-pypi` fails on Linux, ensure a recent pip and manylinux support: `python -m pip install --upgrade pip setuptools wheel`.
+  - If using conda, prefer conda-forge build: `conda install -c conda-forge rdkit` and remove `rdkit-pypi` from pip deps.
+
+- **libSBML errors (ImportError: libsbml not found)**
+  - Use conda package: `conda install -c conda-forge python-libsbml` (already included in `environment.yml`).
+  - For pip-only, ensure system libs are present; if issues persist, consider switching to the conda environment.
+
+- **M1/M2/M3 macOS or ARM runners**
+  - Prefer conda-forge packages; some pip wheels may be unavailable for ARM. Use Docker as a fallback.
+
+- **Pre-commit fails on notebooks**
+  - nbQA runs Black/Flake8 over notebooks. To skip a file: add to `.pre-commit-config.yaml` exclude or commit with `-n` to bypass hooks temporarily.

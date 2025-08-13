@@ -6,14 +6,18 @@ from pathlib import Path
 
 # Read README for long description
 readme_path = Path(__file__).parent / "README.md"
-long_description = readme_path.read_text(encoding="utf-8") if readme_path.exists() else ""
+long_description = (
+    readme_path.read_text(encoding="utf-8") if readme_path.exists() else ""
+)
 
 # Read requirements
 requirements_path = Path(__file__).parent / "requirements.txt"
 requirements = []
 if requirements_path.exists():
-    requirements = requirements_path.read_text().strip().split('\n')
-    requirements = [req.strip() for req in requirements if req.strip() and not req.startswith('#')]
+    requirements = requirements_path.read_text().strip().split("\n")
+    requirements = [
+        req.strip() for req in requirements if req.strip() and not req.startswith("#")
+    ]
 
 setup(
     name="reddust-reclaimer",
@@ -31,12 +35,13 @@ setup(
         "Topic :: Scientific/Engineering :: Bio-Informatics",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.9",
+    python_requires=">=3.8,<3.12",
     install_requires=requirements,
     extras_require={
         "dev": [
@@ -55,7 +60,7 @@ setup(
             "plotly>=5.0.0",
             "seaborn>=0.11.0",
             "ipywidgets>=7.6.0",
-        ]
+        ],
     },
     entry_points={
         "console_scripts": [
