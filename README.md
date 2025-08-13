@@ -1,9 +1,6 @@
 # 🧬 RedDust Reclaimer
 
-![CI (Micromamba Matrix)](https://github.com/Jonahnki/reddust-reclaimer/actions/workflows/ci-conda.yml/badge.svg)  
-![Docs](https://img.shields.io/badge/docs-Sphinx-blue)  
-![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)  
-![Python](https://img.shields.io/badge/Python-3.8--3.11-blue)  
+![CI (Micromamba Matrix)](https://github.com/Jonahnki/reddust-reclaimer/actions/workflows/ci-conda.yml/badge.svg)  ![Docs](https://img.shields.io/badge/docs-Sphinx-blue)  ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)  ![Python](https://img.shields.io/badge/Python-3.8--3.11-blue)  
 
 A computational biology toolkit for Mars terraforming research that combines molecular docking, metabolic modeling, and genetic engineering workflows.
 
