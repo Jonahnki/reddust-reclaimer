@@ -73,39 +73,86 @@ Vercel is configured via `vercel.json` to:
 
 ## 🔬 Features
 
-*(unchanged from previous)*
-\[Retain Molecular Docking, Codon Optimization, Metabolic Modeling descriptions]
+### Molecular Docking
+
+* Mars-adapted enzyme docking simulating protein–ligand interactions under Mars conditions
+* Atmospheric processing with emphasis on CO2 fixation and extremophile pathways
+* Accounts for low temperature, high radiation, and low pressure
+
+### Codon Optimization
+
+* Sequence optimization tailored for Mars extremophile adaptation
+* Codon usage stability across −80°C to 20°C
+* Emphasis on radiation-resilient encoding choices
+
+### Metabolic Modeling
+
+* Flux balance analysis (FBA) for efficient Mars resource utilization
+* Modeling of CO2 fixation pathways informed by Mars atmospheric data
+* Optimization for water and energy use under scarcity
 
 ---
 
-## 📖 Documentation Structure
+## 📊 Example Usage
 
+### Molecular Docking
+
+```python
+from reddust_reclaimer.dock_example import MarsEnzymeDocking
+
+# Initialize for Mars conditions (T in Kelvin, P in bar)
+docker = MarsEnzymeDocking(temperature=233.15, pressure=0.006)
+
+# Run docking simulation
+results = docker.dock_mars_enzyme_substrate("carbonic_anhydrase")
+docker.print_docking_summary(results)
 ```
-docs/
-├── build.sh         # Build Sphinx site into docs/dist
-├── dist/            # Static HTML output (committed for Vercel)
-└── source/          # Sphinx source files (.rst, conf.py, etc.)
+
+### Codon Optimization
+
+```python
+from reddust_reclaimer.codon_optimization import MarsCodonOptimizer
+
+optimizer = MarsCodonOptimizer()
+optimized_seq = optimizer.optimize_for_mars_conditions("ATGAAATTTGGGTAG")
+print(f"Optimized: {optimized_seq}")
+```
+
+### Metabolic Flux Analysis
+
+```python
+from reddust_reclaimer.metabolic_flux import MarsMetabolicNetwork
+
+network = MarsMetabolicNetwork()
+results = network.mars_metabolic_flux_analysis("biomass_synthesis")
+network.print_flux_analysis(results)
 ```
 
 ---
 
-## 🧪 Testing, Roadmap, Citation, License, Acknowledgments
+## 🗺️ Roadmap
 
-*(retain previous sections — still valid)*
+### Phase 1: Foundation (v0.1–0.3) ✅
 
----
+* Core docking and metabolic modeling workflows
+* Example scripts and interactive demos
+* CI/CD pipeline and documentation
 
-This keeps the README aligned with:
+### Phase 2: Advanced Features (v0.4–0.6) 🚧
 
-* **Static-site deployment**
-* Removal of `requirements.txt` from build process
-* Updated docs badge and hosting details
-* Maintainer instructions for Vercel pushes
+* Machine learning models for protein design
+* Multi-scale simulation integration
+* Web-based analysis dashboard
+* API for external tool integration
 
----
+### Phase 3: Ecosystem (v0.7–1.0) 📋
 
-Do you want me to also **strip the pip-only setup and Docker parts** from the README entirely, or keep them so users still have multiple install paths?
+* Plugin architecture for custom workflows
+* Cloud deployment templates (AWS/GCP)
+* Integration with major bioinformatics databases
+* Educational curriculum and tutorials
 
+[View detailed roadmap →](https://github.com/Jonahnki/reddust-reclaimer/projects/1)
 
 ---
 
