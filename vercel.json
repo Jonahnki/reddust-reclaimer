@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "name": "reddust-reclaimer",
+  "builds": [
+    {
+      "src": "docs/build.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/docs/$1"
+    }
+  ],
+  "env": {
+    "PYTHON_VERSION": "3.11"
+  },
+  "buildCommand": "python docs/build.py && python -m pytest tests/ -v",
+  "outputDirectory": "docs/dist"
+}
