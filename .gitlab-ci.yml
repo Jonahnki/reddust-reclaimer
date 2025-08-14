@@ -1,0 +1,170 @@
+# Complete GitLab CI for RedDust Reclaimer
+image: python:3.10
+
+stages:
+  - lint
+  - test
+  - conda-test
+  - docs
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+# Lint stage - runs once, fast feedback
+lint:
+  stage: lint
+  image: python:3.10
+  before_script:
+    - python -m pip install --upgrade pip
+  script:
+    - pip install flake8 black isort
+    - echo "🔍 Running linting checks..."
+    - flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics || true
+    - echo "🎨 Checking code formatting..."
+    - black --check --diff . || true
+    - echo "📦 Checking import sorting..."
+    - isort --check-only --diff . || true
+  allow_failure: true
+
+# Test template for Python versions
+.test_template: &test_template
+  stage: test
+  before_script:
+    - python -m pip install --upgrade pip
+    - echo "📦 Installing dependencies..."
+    - pip install pytest pytest-cov pytest-xdist
+    - |
+      if [ -f requirements.txt ]; then
+        echo "Installing from requirements.txt..."
+        pip install -r requirements.txt
+      fi
+    - |
+      if [ -f pyproject.toml ]; then
+        echo "Installing project in development mode..."
+        pip install -e .
+      fi
+  script:
+    - echo "🧪 Running tests on Python $(python --version)..."
+    - pytest --cov=. --cov-report=xml --cov-report=term-missing --maxfail=5 -v
+  coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+    paths:
+      - htmlcov/
+      - .coverage
+    expire_in: 1 week
+    when: always
+
+# Python version matrix
+test_python38:
+  <<: *test_template
+  image: python:3.8
+
+test_python39:
+  <<: *test_template
+  image: python:3.9
+
+test_python310:
+  <<: *test_template
+  image: python:3.10
+
+test_python311:
+  <<: *test_template
+  image: python:3.11
+
+# Conda environment testing
+conda_environment_test:
+  stage: conda-test
+  image: continuumio/miniconda3:latest
+  before_script:
+    - echo "🐍 Testing conda environment setup..."
+  script:
+    - |
+      if [ -f environment.yml ]; then
+        echo "Creating conda environment from environment.yml..."
+        conda env create -f environment.yml -n testenv
+        source activate testenv
+        echo "✅ Conda environment created successfully"
+        python -c "
+        try:
+            import numpy, pandas, biopython
+            print('✅ Core scientific packages imported successfully')
+        except ImportError as e:
+            print(f'❌ Import error: {e}')
+            exit(1)
+        "
+        # Run tests in conda environment
+        if command -v pytest &> /dev/null; then
+          pytest --maxfail=3 -v
+        else
+          echo "⚠️  pytest not available in conda environment"
+        fi
+      else
+        echo "⚠️  No environment.yml found, skipping conda test"
+      fi
+  allow_failure: true
+  only:
+    changes:
+      - environment.yml
+      - "*.py"
+      - requirements.txt
+
+# Documentation build
+docs:
+  stage: docs
+  image: python:3.10
+  before_script:
+    - pip install --upgrade pip
+  script:
+    - echo "📚 Building documentation..."
+    - |
+      if [ -f docs/requirements.txt ]; then
+        pip install -r docs/requirements.txt
+      else
+        pip install mkdocs mkdocs-material
+      fi
+    - |
+      if [ -f mkdocs.yml ]; then
+        mkdocs build --strict
+        echo "✅ Documentation built successfully"
+      else
+        echo "⚠️  No mkdocs.yml found, creating simple docs structure"
+        mkdir -p site
+        echo "<!DOCTYPE html><html><head><title>RedDust Reclaimer</title></head><body><h1>RedDust Reclaimer Documentation</h1><p>Documentation will be built when mkdocs.yml is added.</p></body></html>" > site/index.html
+      fi
+  artifacts:
+    paths:
+      - site/
+    expire_in: 1 week
+  only:
+    changes:
+      - "docs/**/*"
+      - "mkdocs.yml"
+      - "*.md"
+
+# GitLab Pages deployment (bonus - free hosting!)
+pages:
+  stage: docs
+  script:
+    - echo "🚀 Deploying to GitLab Pages..."
+    - mkdir -p public
+    - |
+      if [ -d site ]; then
+        cp -r site/* public/
+      else
+        echo "<!DOCTYPE html><html><head><title>RedDust Reclaimer</title></head><body><h1>RedDust Reclaimer</h1><p>Project documentation will appear here.</p></body></html>" > public/index.html
+      fi
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - main
