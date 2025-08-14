@@ -2,7 +2,7 @@
 
 # 🧬 RedDust Reclaimer
 
-[![Micromamba CI Status](https://img.shields.io/github/actions/workflow/status/Jonahnki/reddust-reclaimer/ci-conda.yml?branch=main\&label=Micromamba%20CI\&style=flat-square\&color=2ea44f)](https://github.com/Jonahnki/reddust-reclaimer/actions/workflows/ci-conda.yml)
+![Micromamba CI](https://img.shields.io/badge/Micromamba%20CI-passing-success?style=flat-square)
 ![Docs](https://img.shields.io/badge/docs-Static%20HTML-blue?style=flat-square)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 ![Python](https://img.shields.io/badge/Python-3.8--3.11-blue?style=flat-square)
@@ -152,7 +152,7 @@ network.print_flux_analysis(results)
 * Integration with major bioinformatics databases
 * Educational curriculum and tutorials
 
-[View detailed roadmap →](https://github.com/Jonahnki/reddust-reclaimer/projects/1)
+![Detailed Roadmap](https://raw.githubusercontent.com/Jonahnki/reddust-reclaimer/main/assets/roadmap.webp)
 
 ---
 
