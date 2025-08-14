@@ -1,9 +1,8 @@
 {
   "version": 2,
   "name": "reddust-reclaimer",
-  "buildCommand": "python docs/build.py",
+  "buildCommand": "./docs/build.sh",
   "outputDirectory": "docs/dist",
-  "installCommand": "pip install -r requirements.txt",
   "framework": null,
   "headers": [
     {
@@ -17,3 +16,4 @@
     }
   ]
 }
+
