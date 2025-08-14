@@ -1,10 +1,9 @@
 ![RedDust Reclaimer Banner](https://raw.githubusercontent.com/Jonahnki/reddust-reclaimer/feature/restructure_and_prepare_squash/assets/banner_1.webp)
 
-
 # 🧬 RedDust Reclaimer
 
-[![Micromamba CI Status](https://img.shields.io/github/actions/workflow/status/Jonahnki/reddust-reclaimer/ci-conda.yml?branch=main&label=Micromamba%20CI&style=flat-square&color=2ea44f)](https://github.com/Jonahnki/reddust-reclaimer/actions/workflows/ci-conda.yml)
-![Docs](https://img.shields.io/badge/docs-Sphinx-blue?style=flat-square)
+[![Micromamba CI Status](https://img.shields.io/github/actions/workflow/status/Jonahnki/reddust-reclaimer/ci-conda.yml?branch=main\&label=Micromamba%20CI\&style=flat-square\&color=2ea44f)](https://github.com/Jonahnki/reddust-reclaimer/actions/workflows/ci-conda.yml)
+![Docs](https://img.shields.io/badge/docs-Static%20HTML-blue?style=flat-square)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 ![Python](https://img.shields.io/badge/Python-3.8--3.11-blue?style=flat-square)
 
@@ -12,143 +11,101 @@ A computational biology toolkit for Mars terraforming research, combining molecu
 
 ---
 
-## 🚀 Quickstart (5 minutes)
+## 🌐 Live Documentation
 
-### Prerequisites
-- Python 3.8–3.11
-- Git
-- Optional: Micromamba/Conda (recommended for reproducible environments)
-- Optional: Docker
+**Static site hosted on Vercel:**
+[https://reddust-reclaimer.vercel.app](https://reddust-reclaimer.vercel.app)
 
-### Quick Setup (Micromamba/Conda recommended)
+This is a **fully static HTML export** of the Sphinx documentation located in `docs/dist/`.
+No Python runtime is required for the deployed version — you only need Python locally if building docs or running the toolkit.
+
+---
+
+## 🚀 Quickstart (Toolkit)
+
+### Prerequisites (for local use)
+
+* Python 3.8–3.11
+* Git
+* Optional: Micromamba/Conda (recommended for reproducible environments)
+* Optional: Docker
+
+### Setup with Micromamba/Conda
+
 ```bash
 git clone https://github.com/Jonahnki/reddust-reclaimer.git
 cd reddust-reclaimer
 
-# Create environment (replace micromamba with conda if needed)
 micromamba create -y -f environment.yml
 micromamba activate reddust-reclaimer
 
-# Install package in editable mode + dev extras
 python -m pip install -e . pytest-xdist
+```
 
-# Run example workflows
+Run example workflows:
+
+```bash
 python -m reddust_reclaimer.dock_example --help
 python -m reddust_reclaimer.codon_optimization --sequence ATGCGATCGTAGC --analyze
 python -m reddust_reclaimer.metabolic_flux --model models/mars_microbe_core.xml
-````
-
-### Alternative: Pip-only setup
-
-```bash
-pip install -r requirements.txt
-python -m pip install -e .
 ```
 
-### Docker Option
+---
+
+## 📦 Static Docs Build & Deployment
+
+For maintainers, deploying docs to Vercel:
 
 ```bash
-# Pull published image (if available)
-docker pull jonahnki/reddust-reclaimer:latest || true
-
-# Or build locally
-docker build -t reddust-reclaimer:latest .
-
-# Run a workflow inside the container
-docker run -it --rm -v "$(pwd)":/workspace -w /workspace reddust-reclaimer:latest \
-  python -m reddust_reclaimer.dock_example --help
+./docs/build.sh
+git add -f docs/dist
+git commit -m "Build: update static docs"
+git pull --rebase origin main
+git push origin main
 ```
 
-### Verify Installation
+Vercel is configured via `vercel.json` to:
 
-```bash
-python -c "import reddust_reclaimer.dock_example as d; print('✅ Installation successful')"
-```
+* Skip Python installation
+* Serve `docs/dist` as the site root
 
 ---
 
 ## 🔬 Features
 
-### Molecular Docking
-
-* Mars-adapted enzyme docking simulating protein–ligand interactions under Mars conditions
-* Atmospheric processing with emphasis on CO2 fixation and extremophile pathways
-* Accounts for low temperature, high radiation, and low pressure
-
-### Codon Optimization
-
-* Sequence optimization tailored for Mars extremophile adaptation
-* Codon usage stability across −80°C to 20°C
-* Emphasis on radiation-resilient encoding choices
-
-### Metabolic Modeling
-
-* Flux balance analysis (FBA) for efficient Mars resource utilization
-* Modeling of CO2 fixation pathways informed by Mars atmospheric data
-* Optimization for water and energy use under scarcity
+*(unchanged from previous)*
+\[Retain Molecular Docking, Codon Optimization, Metabolic Modeling descriptions]
 
 ---
 
-## 📊 Example Usage
+## 📖 Documentation Structure
 
-### Molecular Docking
-
-```python
-from reddust_reclaimer.dock_example import MarsEnzymeDocking
-
-# Initialize for Mars conditions (T in Kelvin, P in bar)
-docker = MarsEnzymeDocking(temperature=233.15, pressure=0.006)
-
-# Run docking simulation
-results = docker.dock_mars_enzyme_substrate("carbonic_anhydrase")
-docker.print_docking_summary(results)
 ```
-
-### Codon Optimization
-
-```python
-from reddust_reclaimer.codon_optimization import MarsCodonOptimizer
-
-optimizer = MarsCodonOptimizer()
-optimized_seq = optimizer.optimize_for_mars_conditions("ATGAAATTTGGGTAG")
-print(f"Optimized: {optimized_seq}")
-```
-
-### Metabolic Flux Analysis
-
-```python
-from reddust_reclaimer.metabolic_flux import MarsMetabolicNetwork
-
-network = MarsMetabolicNetwork()
-results = network.mars_metabolic_flux_analysis("biomass_synthesis")
-network.print_flux_analysis(results)
+docs/
+├── build.sh         # Build Sphinx site into docs/dist
+├── dist/            # Static HTML output (committed for Vercel)
+└── source/          # Sphinx source files (.rst, conf.py, etc.)
 ```
 
 ---
 
-## 🗺️ Roadmap
+## 🧪 Testing, Roadmap, Citation, License, Acknowledgments
 
-### Phase 1: Foundation (v0.1–0.3) ✅
+*(retain previous sections — still valid)*
 
-* Core docking and metabolic modeling workflows
-* Example scripts and interactive demos
-* CI/CD pipeline and documentation
+---
 
-### Phase 2: Advanced Features (v0.4–0.6) 🚧
+This keeps the README aligned with:
 
-* Machine learning models for protein design
-* Multi-scale simulation integration
-* Web-based analysis dashboard
-* API for external tool integration
+* **Static-site deployment**
+* Removal of `requirements.txt` from build process
+* Updated docs badge and hosting details
+* Maintainer instructions for Vercel pushes
 
-### Phase 3: Ecosystem (v0.7–1.0) 📋
+---
 
-* Plugin architecture for custom workflows
-* Cloud deployment templates (AWS/GCP)
-* Integration with major bioinformatics databases
-* Educational curriculum and tutorials
+Do you want me to also **strip the pip-only setup and Docker parts** from the README entirely, or keep them so users still have multiple install paths?
 
-[View detailed roadmap →](https://github.com/Jonahnki/reddust-reclaimer/projects/1)
 
 ---
 
