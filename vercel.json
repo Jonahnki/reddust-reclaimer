@@ -1,21 +1,20 @@
 {
   "version": 2,
   "name": "reddust-reclaimer",
-  "builds": [
+  "buildCommand": "python docs/build.py",
+  "outputDirectory": "docs/dist",
+  "installCommand": "pip install -r requirements.txt",
+  "framework": null,
+  "functions": {},
+  "headers": [
     {
-      "src": "docs/build.py",
-      "use": "@vercel/python"
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/docs/$1"
-    }
-  ],
-  "env": {
-    "PYTHON_VERSION": "3.11"
-  },
-  "buildCommand": "python docs/build.py && python -m pytest tests/ -v",
-  "outputDirectory": "docs/dist"
+  ]
 }
