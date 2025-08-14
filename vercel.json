@@ -5,7 +5,6 @@
   "outputDirectory": "docs/dist",
   "installCommand": "pip install -r requirements.txt",
   "framework": null,
-  "functions": {},
   "headers": [
     {
       "source": "/(.*)",
